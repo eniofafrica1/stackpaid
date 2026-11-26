@@ -20,14 +20,14 @@
     h3 { font-size: 17px; font-weight: 700; margin-bottom: 12px; color: #0f172a; }
     .subtext { color: #64748b; font-size: 14px; margin-bottom: 22px; line-height: 1.5; }
     .tabs { display: flex; gap: 6px; background: #f1f5f9; padding: 5px; border-radius: 12px; margin-bottom: 20px; }
-    .tab-btn { flex: 1; padding: 10px; border: none; border-radius: 9px; font-weight: 700; font-size: 14px; cursor: pointer; background: transparent; color: #64748b; transition: 0.2s; }
-    .tab-btn.active { background: #ffffff; color: #059669; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+    .tab-btn { flex: 1; padding: 11px; border: none; border-radius: 9px; font-weight: 700; font-size: 14px; cursor: pointer; background: transparent; color: #64748b; }
+    .tab-btn.active { background: #ffffff; color: #059669; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
     .field { margin-bottom: 15px; }
     label { display: block; font-size: 12px; color: #475569; margin-bottom: 6px; font-weight: 700; }
     input { width: 100%; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 11px; padding: 12px 14px; color: #0f172a; font-size: 14px; outline: none; }
     input:focus { border-color: #10b981; background: #ffffff; }
     .btn { width: 100%; background: #10b981; color: #ffffff; border: none; border-radius: 12px; padding: 14px; font-weight: 800; font-size: 15px; cursor: pointer; margin-top: 6px; box-shadow: 0 4px 12px rgba(16,185,129,0.25); }
-    .btn:active { opacity: 0.9; }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
     .btn-sm { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 9px; padding: 8px 14px; font-size: 13px; font-weight: 700; cursor: pointer; }
     .btn-purple { background: #7c3aed; color: #ffffff; border: none; }
     .alert { max-width: 480px; margin: 14px auto 0; padding: 0 16px; }
@@ -63,7 +63,7 @@
       <span class="logo-badge">S</span>
       <span>Stackpaid</span>
     </div>
-    <button id="logoutBtn" onclick="logout()" class="btn-sm hidden">Log Out</button>
+    <button type="button" id="logoutBtn" onclick="logout()" class="btn-sm hidden">Log Out</button>
   </nav>
 
   <div id="alertBox" class="alert hidden">
@@ -77,8 +77,8 @@
       <p class="subtext">Complete simple social media tasks and get paid worldwide.</p>
 
       <div class="tabs">
-        <button id="tabLogin" onclick="switchAuthTab('login')" class="tab-btn active">Log In</button>
-        <button id="tabSignup" onclick="switchAuthTab('signup')" class="tab-btn">Sign Up</button>
+        <button type="button" id="tabLogin" onclick="switchAuthTab('login')" class="tab-btn active">Log In</button>
+        <button type="button" id="tabSignup" onclick="switchAuthTab('signup')" class="tab-btn">Sign Up</button>
       </div>
 
       <form id="authForm" onsubmit="handleAuth(event)">
@@ -106,7 +106,7 @@
       <p class="subtext">
         Pay a one-time activation fee of <strong style="color:#0f172a;">₦<span id="feeDisplay"></span></strong> to unlock daily social media tasks and start earning real cash.
       </p>
-      <button onclick="payActivation()" class="btn">
+      <button type="button" onclick="payActivation()" class="btn">
         Pay ₦<span id="feeBtnDisplay"></span> with Paystack
       </button>
     </div>
@@ -118,7 +118,7 @@
       <div style="font-size:12px; font-weight:700; text-transform:uppercase; opacity:0.9;">Available Balance</div>
       <div class="balance">₦<span id="userBalance">0</span></div>
       <div style="margin-bottom:16px;"><span class="badge">Verified Member</span></div>
-      <button onclick="openWithdrawModal()" class="btn-sm" style="background:#ffffff; color:#047857; border:none; padding:10px 18px;">Withdraw Funds</button>
+      <button type="button" onclick="openWithdrawModal()" class="btn-sm" style="background:#ffffff; color:#047857; border:none; padding:10px 18px;">Withdraw Funds</button>
     </div>
 
     <div id="adminBanner" class="admin-box hidden">
@@ -126,13 +126,13 @@
         <div style="font-weight:800; color:#5b21b6; font-size:14px;">Admin Control Panel</div>
         <div style="font-size:12px; color:#64748b;">Post tasks, approve proofs & payouts</div>
       </div>
-      <button onclick="toggleAdminPanel()" class="btn-sm btn-purple">Open Admin</button>
+      <button type="button" onclick="toggleAdminPanel()" class="btn-sm btn-purple">Open Admin</button>
     </div>
 
     <div id="adminPanel" class="card hidden" style="margin-bottom:20px; border: 2px solid #8b5cf6;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
         <h3 style="color:#5b21b6; margin:0;">Admin Manager</h3>
-        <button onclick="toggleAdminPanel()" class="btn-sm">Close</button>
+        <button type="button" onclick="toggleAdminPanel()" class="btn-sm">Close</button>
       </div>
 
       <form onsubmit="createTask(event)" style="margin-bottom:20px;">
@@ -156,5 +156,3 @@
 
   <!-- WITHDRAW MODAL -->
   <div id="withdrawModal" class="modal-bg hidden">
-    <div class="card" style="width:100%; max-width:420px;">
-      <h2>Request Payout</h2>
