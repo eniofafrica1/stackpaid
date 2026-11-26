@@ -4,15 +4,50 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stackpaid | Earn From Social Media Tasks</title>
-  <script src="https://tailwindcss.com"></script>
   <script src="https://jsdelivr.net"></script>
   <script src="https://paystack.co"></script>
   <style>
-    body { background-color: #020617; color: #f1f5f9; font-family: system-ui, -apple-system, sans-serif; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: #f1f5f9; color: #0f172a; min-height: 100vh; padding-bottom: 60px; }
     .hidden { display: none !important; }
+    nav { background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 40; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; color: #0f172a; }
+    .logo-badge { background: #10b981; color: #ffffff; font-weight: 900; padding: 5px 11px; border-radius: 10px; }
+    .container { max-width: 480px; margin: 28px auto; padding: 0 16px; }
+    .card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 26px; box-shadow: 0 10px 25px rgba(15,23,42,0.06); }
+    h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; color: #0f172a; }
+    h2 { font-size: 20px; font-weight: 800; margin-bottom: 8px; color: #0f172a; }
+    h3 { font-size: 17px; font-weight: 700; margin-bottom: 12px; color: #0f172a; }
+    .subtext { color: #64748b; font-size: 14px; margin-bottom: 22px; line-height: 1.5; }
+    .tabs { display: flex; gap: 6px; background: #f1f5f9; padding: 5px; border-radius: 12px; margin-bottom: 20px; }
+    .tab-btn { flex: 1; padding: 10px; border: none; border-radius: 9px; font-weight: 700; font-size: 14px; cursor: pointer; background: transparent; color: #64748b; transition: 0.2s; }
+    .tab-btn.active { background: #ffffff; color: #059669; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+    .field { margin-bottom: 15px; }
+    label { display: block; font-size: 12px; color: #475569; margin-bottom: 6px; font-weight: 700; }
+    input { width: 100%; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 11px; padding: 12px 14px; color: #0f172a; font-size: 14px; outline: none; }
+    input:focus { border-color: #10b981; background: #ffffff; }
+    .btn { width: 100%; background: #10b981; color: #ffffff; border: none; border-radius: 12px; padding: 14px; font-weight: 800; font-size: 15px; cursor: pointer; margin-top: 6px; box-shadow: 0 4px 12px rgba(16,185,129,0.25); }
+    .btn:active { opacity: 0.9; }
+    .btn-sm { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 9px; padding: 8px 14px; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .btn-purple { background: #7c3aed; color: #ffffff; border: none; }
+    .alert { max-width: 480px; margin: 14px auto 0; padding: 0 16px; }
+    .alert-inner { padding: 12px 14px; border-radius: 11px; font-size: 13px; font-weight: 600; background: #ecfdf5; border: 1px solid #10b981; color: #065f46; }
+    .alert-err { background: #fef2f2; border-color: #ef4444; color: #991b1b; }
+    .wallet-card { background: linear-gradient(135deg, #059669, #047857); color: #ffffff; border-radius: 20px; padding: 24px; margin-bottom: 18px; box-shadow: 0 10px 25px rgba(5,150,105,0.25); }
+    .balance { font-size: 38px; font-weight: 900; margin: 6px 0; }
+    .badge { display: inline-block; background: rgba(255,255,255,0.22); padding: 4px 11px; border-radius: 99px; font-size: 12px; font-weight: 700; }
+    .task-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 18px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    .task-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+    .platform-tag { background: #ecfdf5; color: #059669; font-size: 11px; font-weight: 800; padding: 4px 9px; border-radius: 6px; text-transform: uppercase; }
+    .reward { color: #059669; font-weight: 900; font-size: 17px; }
+    .task-actions { display: flex; flex-direction: column; gap: 8px; }
+    .link-btn { display: block; text-align: center; background: #0f172a; color: #ffffff; text-decoration: none; padding: 11px; border-radius: 10px; font-size: 13px; font-weight: 700; }
+    .admin-box { background: #f5f3ff; border: 1.5px solid #c4b5fd; border-radius: 16px; padding: 16px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; }
+    .list-item { background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 12px; }
+    .modal-bg { position: fixed; inset: 0; background: rgba(15,23,42,0.75); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 50; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
+<body>
 
   <script>
     const SUPABASE_URL = "https://supabase.co";
@@ -23,141 +58,103 @@
     const MIN_WITHDRAWAL_NGN = 5000;
   </script>
 
-  <nav class="bg-slate-900 border-b border-slate-800 px-4 py-4 flex justify-between items-center sticky top-0 z-40">
-    <div class="flex items-center gap-2">
-      <span class="bg-emerald-500 text-slate-950 font-black px-2.5 py-1 rounded-lg text-lg">S</span>
-      <span class="font-bold text-xl tracking-tight">Stackpaid</span>
+  <nav>
+    <div class="brand">
+      <span class="logo-badge">S</span>
+      <span>Stackpaid</span>
     </div>
-    <button id="logoutBtn" onclick="logout()" class="hidden text-sm bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg text-slate-300">
-      Log Out
-    </button>
+    <button id="logoutBtn" onclick="logout()" class="btn-sm hidden">Log Out</button>
   </nav>
 
-  <div id="alertBox" class="hidden max-w-2xl mx-auto mt-4 px-4">
-    <div id="alertText" class="p-3 rounded-lg text-sm font-medium bg-emerald-500/20 border border-emerald-500 text-emerald-300"></div>
+  <div id="alertBox" class="alert hidden">
+    <div id="alertText" class="alert-inner"></div>
   </div>
 
-  <main id="authSection" class="max-w-md mx-auto mt-10 px-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-      <h1 class="text-2xl font-bold mb-1">Welcome to Stackpaid</h1>
-      <p class="text-slate-400 text-sm mb-6">Complete simple social media tasks and get paid worldwide.</p>
+  <!-- LOGIN / SIGNUP -->
+  <main id="authSection" class="container">
+    <div class="card">
+      <h1>Welcome to Stackpaid</h1>
+      <p class="subtext">Complete simple social media tasks and get paid worldwide.</p>
 
-      <div class="flex gap-2 mb-6 bg-slate-950 p-1 rounded-xl">
-        <button id="tabLogin" onclick="switchAuthTab('login')" class="flex-1 py-2 rounded-lg text-sm font-semibold bg-emerald-500 text-slate-950">Log In</button>
-        <button id="tabSignup" onclick="switchAuthTab('signup')" class="flex-1 py-2 rounded-lg text-sm font-semibold text-slate-400">Sign Up</button>
+      <div class="tabs">
+        <button id="tabLogin" onclick="switchAuthTab('login')" class="tab-btn active">Log In</button>
+        <button id="tabSignup" onclick="switchAuthTab('signup')" class="tab-btn">Sign Up</button>
       </div>
 
-      <form id="authForm" onsubmit="handleAuth(event)" class="space-y-4">
-        <div id="nameField" class="hidden">
-          <label class="block text-xs text-slate-400 mb-1">Full Name</label>
-          <input type="text" id="fullName" placeholder="e.g. Eniola Ololade" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500" />
+      <form id="authForm" onsubmit="handleAuth(event)">
+        <div id="nameField" class="field hidden">
+          <label>Full Name</label>
+          <input type="text" id="fullName" placeholder="e.g. Eniola Ololade" />
         </div>
-        <div>
-          <label class="block text-xs text-slate-400 mb-1">Email Address</label>
-          <input type="email" id="email" required placeholder="you@example.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500" />
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="email" required placeholder="you@example.com" />
         </div>
-        <div>
-          <label class="block text-xs text-slate-400 mb-1">Password</label>
-          <input type="password" id="password" required minlength="6" placeholder="Min. 6 characters" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500" />
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="password" required minlength="6" placeholder="Min. 6 characters" />
         </div>
-        <button type="submit" id="authSubmitBtn" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 rounded-xl transition">
-          Log In
-        </button>
+        <button type="submit" id="authSubmitBtn" class="btn">Log In</button>
       </form>
     </div>
   </main>
 
-  <section id="activationSection" class="hidden max-w-md mx-auto mt-10 px-4">
-    <div class="bg-slate-900 border border-amber-500/40 rounded-2xl p-6 text-center shadow-xl">
-      <div class="w-14 h-14 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">!</div>
-      <h2 class="text-xl font-bold mb-2">Activate Your Account</h2>
-      <p class="text-slate-400 text-sm mb-6">
-        Pay a one-time activation fee of <span class="text-white font-bold">₦<span id="feeDisplay"></span></span> to unlock daily social media tasks and start earning real cash.
+  <!-- ACTIVATION GATE -->
+  <section id="activationSection" class="container hidden">
+    <div class="card" style="text-align:center; border: 2px solid #f59e0b;">
+      <h2>Activate Your Account</h2>
+      <p class="subtext">
+        Pay a one-time activation fee of <strong style="color:#0f172a;">₦<span id="feeDisplay"></span></strong> to unlock daily social media tasks and start earning real cash.
       </p>
-      <button onclick="payActivation()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3.5 rounded-xl transition">
+      <button onclick="payActivation()" class="btn">
         Pay ₦<span id="feeBtnDisplay"></span> with Paystack
       </button>
     </div>
   </section>
 
-  <section id="dashboardSection" class="hidden max-w-2xl mx-auto mt-6 px-4 pb-20 space-y-6">
-    <div class="bg-gradient-to-br from-emerald-600 to-teal-800 rounded-2xl p-6 shadow-lg">
-      <p class="text-emerald-100 text-xs uppercase tracking-wider font-semibold">Available Balance</p>
-      <h2 class="text-4xl font-black text-white mt-1">₦<span id="userBalance">0</span></h2>
-      <p class="text-emerald-100 text-xs mt-2">Status: <span class="bg-white/20 px-2 py-0.5 rounded font-semibold">Verified Member</span></p>
-      <button onclick="openWithdrawModal()" class="mt-4 bg-slate-950 text-white text-sm font-semibold px-4 py-2.5 rounded-xl hover:bg-slate-900">
-        Withdraw Funds
-      </button>
+  <!-- DASHBOARD -->
+  <section id="dashboardSection" class="container hidden">
+    <div class="wallet-card">
+      <div style="font-size:12px; font-weight:700; text-transform:uppercase; opacity:0.9;">Available Balance</div>
+      <div class="balance">₦<span id="userBalance">0</span></div>
+      <div style="margin-bottom:16px;"><span class="badge">Verified Member</span></div>
+      <button onclick="openWithdrawModal()" class="btn-sm" style="background:#ffffff; color:#047857; border:none; padding:10px 18px;">Withdraw Funds</button>
     </div>
 
-    <div id="adminBanner" class="hidden bg-purple-900/40 border border-purple-500 rounded-xl p-4 flex justify-between items-center">
+    <div id="adminBanner" class="admin-box hidden">
       <div>
-        <p class="font-bold text-purple-300 text-sm">Admin Control Panel</p>
-        <p class="text-xs text-slate-400">Post tasks, approve submissions & payouts</p>
+        <div style="font-weight:800; color:#5b21b6; font-size:14px;">Admin Control Panel</div>
+        <div style="font-size:12px; color:#64748b;">Post tasks, approve proofs & payouts</div>
       </div>
-      <button onclick="toggleAdminPanel()" class="bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold px-3 py-2 rounded-lg">
-        Open Admin
-      </button>
+      <button onclick="toggleAdminPanel()" class="btn-sm btn-purple">Open Admin</button>
     </div>
 
-    <div id="adminPanel" class="hidden bg-slate-900 border border-purple-500/50 rounded-2xl p-5 space-y-6">
-      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-        <h3 class="font-bold text-lg text-purple-300">Admin Manager</h3>
-        <button onclick="toggleAdminPanel()" class="text-xs text-slate-400">Close</button>
+    <div id="adminPanel" class="card hidden" style="margin-bottom:20px; border: 2px solid #8b5cf6;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <h3 style="color:#5b21b6; margin:0;">Admin Manager</h3>
+        <button onclick="toggleAdminPanel()" class="btn-sm">Close</button>
       </div>
 
-      <form onsubmit="createTask(event)" class="space-y-3">
-        <p class="text-sm font-semibold">Post a New Social Task</p>
-        <input type="text" id="taskTitle" required placeholder="Task Title (e.g. Follow our Instagram Page)" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white" />
-        <div class="grid grid-cols-2 gap-2">
-          <input type="text" id="taskPlatform" required placeholder="Platform (Instagram, TikTok...)" class="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white" />
-          <input type="number" id="taskReward" required placeholder="Reward (NGN e.g. 50)" class="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white" />
-        </div>
-        <input type="url" id="taskUrl" required placeholder="Link (https://instagram.com...)" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white" />
-        <button type="submit" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 rounded-lg text-sm">Publish Task</button>
+      <form onsubmit="createTask(event)" style="margin-bottom:20px;">
+        <div class="field"><input type="text" id="taskTitle" required placeholder="Task Title (e.g. Follow our Instagram)" /></div>
+        <div class="field"><input type="text" id="taskPlatform" required placeholder="Platform (Instagram, TikTok, YouTube...)" /></div>
+        <div class="field"><input type="number" id="taskReward" required placeholder="Reward in Naira (e.g. 50)" /></div>
+        <div class="field"><input type="url" id="taskUrl" required placeholder="Task Link (https://...)" /></div>
+        <button type="submit" class="btn btn-purple">Publish Task</button>
       </form>
 
-      <div>
-        <p class="text-sm font-semibold mb-2">Pending Task Proofs</p>
-        <div id="adminSubmissionsList" class="space-y-2 text-xs"></div>
-      </div>
+      <h3>Pending Task Proofs</h3>
+      <div id="adminSubmissionsList" style="margin-bottom:18px;"></div>
 
-      <div>
-        <p class="text-sm font-semibold mb-2">Pending Withdrawals</p>
-        <div id="adminWithdrawalsList" class="space-y-2 text-xs"></div>
-      </div>
+      <h3>Pending Withdrawals</h3>
+      <div id="adminWithdrawalsList"></div>
     </div>
 
-    <div>
-      <h3 class="font-bold text-lg mb-3">Available Social Media Tasks</h3>
-      <div id="tasksList" class="space-y-3">
-        <p class="text-slate-400 text-sm">Loading tasks...</p>
-      </div>
-    </div>
+    <h3>Available Social Media Tasks</h3>
+    <div id="tasksList"><p class="subtext">Loading tasks...</p></div>
   </section>
 
-  <div id="withdrawModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-md w-full space-y-4">
-      <h3 class="font-bold text-lg">Request Payout</h3>
-      <p class="text-xs text-slate-400">Minimum withdrawal: ₦<span id="minWithdrawText"></span></p>
-      <form onsubmit="submitWithdrawal(event)" class="space-y-3">
-        <input type="number" id="withdrawAmount" required placeholder="Amount (NGN)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white" />
-        <input type="text" id="bankName" required placeholder="Bank Name (e.g. OPay, Access, GTBank)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white" />
-        <input type="text" id="accountNumber" required placeholder="Account Number" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white" />
-        <input type="text" id="accountName" required placeholder="Account Holder Name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white" />
-        <div class="flex gap-2 pt-2">
-          <button type="button" onclick="closeWithdrawModal()" class="flex-1 bg-slate-800 py-2.5 rounded-xl text-sm">Cancel</button>
-          <button type="submit" class="flex-1 bg-emerald-500 text-slate-950 font-bold py-2.5 rounded-xl text-sm">Submit</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <script>
-    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    let currentUser = null;
-    let currentProfile = null;
-    let authMode = 'login';
-
-    document.getElementById('feeDisplay').innerText = ACTIVATION_FEE_NGN.toLocaleString();
-    document.getElementById('feeBtnDisplay').innerText = ACTIVATION_FEE_NGN.toLocaleString();
+  <!-- WITHDRAW MODAL -->
+  <div id="withdrawModal" class="modal-bg hidden">
+    <div class="card" style="width:100%; max-width:420px;">
+      <h2>Request Payout</h2>
