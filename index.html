@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stackpaid | Earn From Social Media Tasks</title>
+  <script src="https://tailwindcss.com"></script>
+  <script src="https://jsdelivr.net"></script>
+  <script src="https://paystack.co"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
+
+  <script>
+    const SUPABASE_URL = "https://supabase.co";
+    const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
+    const PAYSTACK_PUBLIC_KEY = "pk_live_507bf2539736ad570293ca940f4859775d6b4aec";
+
+    const ACTIVATION_FEE_NGN = 1000;
+    const MIN_WITHDRAWAL_NGN = 5000;
+  </script>
+
+  <nav class="bg-slate-900 border-b border-slate-800 px-4 py-4 flex justify-between items-center sticky top-0 z-40">
+    <div class="flex items-center gap-2">
+      <span class="bg-emerald-500 text-slate-950 font-black px-2.5 py-1 rounded-lg text-lg">S</span>
+      <span class="font-bold text-xl tracking-tight">Stackpaid</span>
+    </div>
+    <button id="logoutBtn" onclick="logout()" class="hidden text-sm bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg text-slate-300">
+      Log Out
+    </button>
+  </nav>
+
+  <div id="alertBox" class="hidden max-w-2xl mx-auto mt-4 px-4">
+    <div id="alertText" class="p-3 rounded-lg text-sm font-medium bg-emerald-500/20 border border-emerald-500 text-emerald-300"></div>
+  </div>
+
+  <main id="authSection" class="max-w-md mx-auto mt-10 px-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+      <h1 class="text-2xl font-bold mb-1">Welcome to Stackpaid</h1>
+      <p class="text-slate-400 text-sm mb-6">Complete simple social media tasks and get paid worldwide.</p>
+
+      <div class="flex gap-2 mb-6 bg-slate-950 p-1 rounded-xl">
+        <button id="tabLogin" onclick="switchAuthTab('login')" class="flex-1 py-2 rounded-lg text-sm font-semibold bg-emerald-500 text-slate-950">Log In</button>
+        <button id="tabSignup" onclick="switchAuthTab('signup')" class="flex-1 py-2 rounded-lg text-sm font-semibold text-slate-400">Sign Up</button>
+      </div>
+
+      <form id="authForm" onsubmit="handleAuth(event)" class="space-y-4">
+        <div id="nameField" class="hidden">
+          <label class="block text-xs text-slate-400 mb-1">Full Name</label>
+          <input type="text" id="fullName" placeholder="e.g. Eniola Ololade" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-emerald-500" />
+        </div>
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">Email Address</label>
+          <input type="email" id="email" required placeholder="you@example.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-emerald-500" />
+        </div>
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">Password</label>
+          <input type="password" id="password" required minlength="6" placeholder="Min. 6 characters" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-emerald-500" />
+        </div>
+        <button type="submit" id="authSubmitBtn" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3 rounded-xl transition">
+          Log In
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <section id="activationSection" class="hidden max-w-md mx-auto mt-10 px-4">
+    <div class="bg-slate-900 border border-amber-500/40 rounded-2xl p-6 text-center shadow-xl">
+      <div class="w-14 h-14 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">!</div>
+      <h2 class="text-xl font-bold mb-2">Activate Your Account</h2>
+      <p class="text-slate-400 text-sm mb-6">
+        Pay a one-time activation fee of <span class="text-white font-bold">₦<span id="feeDisplay"></span></span> to unlock daily social media tasks and start earning real cash.
+      </p>
+      <button onclick="payActivation()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-3.5 rounded-xl transition">
+        Pay ₦<span id="feeBtnDisplay"></span> with Paystack
+      </button>
+    </div>
+  </section>
+
+  <section id="dashboardSection" class="hidden max-w-2xl mx-auto mt-6 px-4 pb-20 space-y-6">
+    <div class="bg-gradient-to-br from-emerald-600 to-teal-800 rounded-2xl p-6 shadow-lg">
+      <p class="text-emerald-100 text-xs uppercase tracking-wider font-semibold">Available Balance</p>
+      <h2 class="text-4xl font-black text-white mt-1">₦<span id="userBalance">0</span></h2>
+      <p class="text-emerald-100 text-xs mt-2">Status: <span class="bg-white/20 px-2 py-0.5 rounded font-semibold">Verified Member</span></p>
+      <button onclick="openWithdrawModal()" class="mt-4 bg-slate-950 text-white text-sm font-semibold px-4 py-2.5 rounded-xl hover:bg-slate-900">
+        Withdraw Funds
+      </button>
+    </div>
+
+    <div id="adminBanner" class="hidden bg-purple-900/40 border border-purple-500 rounded-xl p-4 flex justify-between items-center">
+      <div>
+        <p class="font-bold text-purple-300 text-sm">Admin Control Panel</p>
+        <p class="text-xs text-slate-400">Post tasks, approve submissions & payouts</p>
+      </div>
+      <button onclick="toggleAdminPanel()" class="bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold px-3 py-2 rounded-lg">
+        Open Admin
+      </button>
+    </div>
+
+    <div id="adminPanel" class="hidden bg-slate-900 border border-purple-500/50 rounded-2xl p-5 space-y-6">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+        <h3 class="font-bold text-lg text-purple-300">Admin Manager</h3>
+        <button onclick="toggleAdminPanel()" class="text-xs text-slate-400">Close</button>
+      </div>
+
+      <form onsubmit="createTask(event)" class="space-y-3">
+        <p class="text-sm font-semibold">Post a New Social Task</p>
+        <input type="text" id="taskTitle" required placeholder="Task Title (e.g. Follow our Instagram Page)" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm" />
+        <div class="grid grid-cols-2 gap-2">
+          <input type="text" id="taskPlatform" required placeholder="Platform (Instagram, TikTok...)" class="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm" />
+          <input type="number" id="taskReward" required placeholder="Reward (NGN e.g. 50)" class="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm" />
+        </div>
+        <input type="url" id="taskUrl" required placeholder="Link (https://instagram.com...)" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm" />
+        <button type="submit" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 rounded-lg text-sm">Publish Task</button>
+      </form>
+
+      <div>
+        <p class="text-sm font-semibold mb-2">Pending Task Proofs</p>
+        <div id="adminSubmissionsList" class="space-y-2 text-xs"></div>
+      </div>
+
+      <div>
+        <p class="text-sm font-semibold mb-2">Pending Withdrawals</p>
+        <div id="adminWithdrawalsList" class="space-y-2 text-xs"></div>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="font-bold text-lg mb-3">Available Social Media Tasks</h3>
+      <div id="tasksList" class="space-y-3">
+        <p class="text-slate-400 text-sm">Loading tasks...</p>
+      </div>
+    </div>
+  </section>
+
+  <div id="withdrawModal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-md w-full space-y-4">
+      <h3 class="font-bold text-lg">Request Payout</h3>
+      <p class="text-xs text-slate-400">Minimum withdrawal: ₦<span id="minWithdrawText"></span></p>
+      <form onsubmit="submitWithdrawal(event)" class="space-y-3">
+        <input type="number" id="withdrawAmount" required placeholder="Amount (NGN)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm" />
+        <input type="text" id="bankName" required placeholder="Bank Name (e.g. OPay, Access, GTBank)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm" />
+        <input type="text" id="accountNumber" required placeholder="Account Number" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm" />
+        <input type="text" id="accountName" required placeholder="Account Holder Name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm" />
+        <div class="flex gap-2 pt-2">
+          <button type="button" onclick="closeWithdrawModal()" class="flex-1 bg-slate-800 py-2.5 rounded-xl text-sm">Cancel</button>
+          <button type="submit" class="flex-1 bg-emerald-500 text-slate-950 font-bold py-2.5 rounded-xl text-sm">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    let currentUser = null;
+    let currentProfile = null;
+    let authMode = 'login';
+
+    document.getElementById('feeDisplay').innerText = ACTIVATION_FEE_NGN.toLocaleString();
+    document.getElementById('feeBtnDisplay').innerText = ACTIVATION_FEE_NGN.toLocaleString();
+    document.getElementById('minWithdrawText').innerText = MIN_WITHDRAWAL_NGN.toLocaleString();
+
+    function showAlert(msg, isError = false) {
+      const box = document.getElementById('alertBox');
+      const txt = document.getElementById('alertText');
+      box.classList.remove('hidden');
+      txt.innerText = msg;
+      txt.className = isError
+        ? "p-3 rounded-lg text-sm font-medium bg-red-500/20 border border-red-500 text-red-300"
