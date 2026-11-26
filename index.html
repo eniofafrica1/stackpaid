@@ -1,158 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stackpaid | Earn From Social Media Tasks</title>
-  <script src="https://jsdelivr.net"></script>
-  <script src="https://paystack.co"></script>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background: #f1f5f9; color: #0f172a; min-height: 100vh; padding-bottom: 60px; }
-    .hidden { display: none !important; }
-    nav { background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 40; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; color: #0f172a; }
-    .logo-badge { background: #10b981; color: #ffffff; font-weight: 900; padding: 5px 11px; border-radius: 10px; }
-    .container { max-width: 480px; margin: 28px auto; padding: 0 16px; }
-    .card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 26px; box-shadow: 0 10px 25px rgba(15,23,42,0.06); }
-    h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; color: #0f172a; }
-    h2 { font-size: 20px; font-weight: 800; margin-bottom: 8px; color: #0f172a; }
-    h3 { font-size: 17px; font-weight: 700; margin-bottom: 12px; color: #0f172a; }
-    .subtext { color: #64748b; font-size: 14px; margin-bottom: 22px; line-height: 1.5; }
-    .tabs { display: flex; gap: 6px; background: #f1f5f9; padding: 5px; border-radius: 12px; margin-bottom: 20px; }
-    .tab-btn { flex: 1; padding: 11px; border: none; border-radius: 9px; font-weight: 700; font-size: 14px; cursor: pointer; background: transparent; color: #64748b; }
-    .tab-btn.active { background: #ffffff; color: #059669; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
-    .field { margin-bottom: 15px; }
-    label { display: block; font-size: 12px; color: #475569; margin-bottom: 6px; font-weight: 700; }
-    input { width: 100%; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 11px; padding: 12px 14px; color: #0f172a; font-size: 14px; outline: none; }
-    input:focus { border-color: #10b981; background: #ffffff; }
-    .btn { width: 100%; background: #10b981; color: #ffffff; border: none; border-radius: 12px; padding: 14px; font-weight: 800; font-size: 15px; cursor: pointer; margin-top: 6px; box-shadow: 0 4px 12px rgba(16,185,129,0.25); }
-    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
-    .btn-sm { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 9px; padding: 8px 14px; font-size: 13px; font-weight: 700; cursor: pointer; }
-    .btn-purple { background: #7c3aed; color: #ffffff; border: none; }
-    .alert { max-width: 480px; margin: 14px auto 0; padding: 0 16px; }
-    .alert-inner { padding: 12px 14px; border-radius: 11px; font-size: 13px; font-weight: 600; background: #ecfdf5; border: 1px solid #10b981; color: #065f46; }
-    .alert-err { background: #fef2f2; border-color: #ef4444; color: #991b1b; }
-    .wallet-card { background: linear-gradient(135deg, #059669, #047857); color: #ffffff; border-radius: 20px; padding: 24px; margin-bottom: 18px; box-shadow: 0 10px 25px rgba(5,150,105,0.25); }
-    .balance { font-size: 38px; font-weight: 900; margin: 6px 0; }
-    .badge { display: inline-block; background: rgba(255,255,255,0.22); padding: 4px 11px; border-radius: 99px; font-size: 12px; font-weight: 700; }
-    .task-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 18px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-    .task-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-    .platform-tag { background: #ecfdf5; color: #059669; font-size: 11px; font-weight: 800; padding: 4px 9px; border-radius: 6px; text-transform: uppercase; }
-    .reward { color: #059669; font-weight: 900; font-size: 17px; }
-    .task-actions { display: flex; flex-direction: column; gap: 8px; }
-    .link-btn { display: block; text-align: center; background: #0f172a; color: #ffffff; text-decoration: none; padding: 11px; border-radius: 10px; font-size: 13px; font-weight: 700; }
-    .admin-box { background: #f5f3ff; border: 1.5px solid #c4b5fd; border-radius: 16px; padding: 16px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; }
-    .list-item { background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 12px; }
-    .modal-bg { position: fixed; inset: 0; background: rgba(15,23,42,0.75); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 50; }
-  </style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StackPaid | Earn from tasks</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f1f5f9;color:#0f172a;font:15px Arial,sans-serif}nav{background:white;padding:16px 20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0}.brand{font-weight:900;font-size:22px}.brand b{background:#10b981;color:white;padding:7px 11px;border-radius:9px;margin-right:8px}.wrap{max-width:520px;margin:25px auto;padding:0 15px}.card{background:white;border:1px solid #e2e8f0;border-radius:17px;padding:22px;margin-bottom:16px;box-shadow:0 5px 20px #0f172a0b}h1{font-size:25px;margin:0 0 8px}h2{font-size:19px;margin:0 0 13px}.muted{color:#64748b;line-height:1.5}.field{margin:12px 0}label{display:block;font-size:12px;font-weight:bold;margin-bottom:6px;color:#475569}input,textarea,select{width:100%;padding:13px;border:1px solid #cbd5e1;border-radius:10px;background:#f8fafc;font:inherit}button,.btn{border:0;border-radius:10px;padding:13px 16px;background:#10b981;color:white;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block}button.secondary{background:#e2e8f0;color:#334155}.full{width:100%}.tabs{display:flex;gap:8px;margin:18px 0}.tabs button{flex:1}.hidden{display:none!important}.wallet{background:linear-gradient(135deg,#059669,#047857);color:white;padding:23px;border-radius:17px;margin-bottom:15px}.balance{font-size:34px;font-weight:900;margin:8px 0}.task{border:1px solid #e2e8f0;padding:15px;border-radius:13px;margin:12px 0}.task small{color:#64748b}.row{display:flex;justify-content:space-between;gap:10px;align-items:center}.notice{padding:12px;border-radius:9px;background:#ecfdf5;color:#065f46;margin:12px 0}.error{background:#fef2f2;color:#991b1b}.admin{border:2px solid #c4b5fd}.status{font-size:12px;color:#64748b}#message{white-space:pre-wrap}
+</style>
 </head>
 <body>
-
-  <script>
-    const SUPABASE_URL = "https://supabase.co";
-    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRibm54Ynhlc3Z1aXdhbG1qdmx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU2ODcxMzQsImV4cCI6MjExMTI2MzEzNH0.Y11ctLxHJw387vfpuygEPNZ1cVM2rAqvUaYWfK8nK1g";
-    const PAYSTACK_PUBLIC_KEY = "pk_live_507bf2539736ad570293ca940f4859775d6b4aec";
-
-    const ACTIVATION_FEE_NGN = 1000;
-    const MIN_WITHDRAWAL_NGN = 5000;
-  </script>
-
-  <nav>
-    <div class="brand">
-      <span class="logo-badge">S</span>
-      <span>Stackpaid</span>
-    </div>
-    <button type="button" id="logoutBtn" onclick="logout()" class="btn-sm hidden">Log Out</button>
-  </nav>
-
-  <div id="alertBox" class="alert hidden">
-    <div id="alertText" class="alert-inner"></div>
-  </div>
-
-  <!-- LOGIN / SIGNUP -->
-  <main id="authSection" class="container">
-    <div class="card">
-      <h1>Welcome to Stackpaid</h1>
-      <p class="subtext">Complete simple social media tasks and get paid worldwide.</p>
-
-      <div class="tabs">
-        <button type="button" id="tabLogin" onclick="switchAuthTab('login')" class="tab-btn active">Log In</button>
-        <button type="button" id="tabSignup" onclick="switchAuthTab('signup')" class="tab-btn">Sign Up</button>
-      </div>
-
-      <form id="authForm" onsubmit="handleAuth(event)">
-        <div id="nameField" class="field hidden">
-          <label>Full Name</label>
-          <input type="text" id="fullName" placeholder="e.g. Eniola Ololade" />
-        </div>
-        <div class="field">
-          <label>Email Address</label>
-          <input type="email" id="email" required placeholder="you@example.com" />
-        </div>
-        <div class="field">
-          <label>Password</label>
-          <input type="password" id="password" required minlength="6" placeholder="Min. 6 characters" />
-        </div>
-        <button type="submit" id="authSubmitBtn" class="btn">Log In</button>
-      </form>
-    </div>
-  </main>
-
-  <!-- ACTIVATION GATE -->
-  <section id="activationSection" class="container hidden">
-    <div class="card" style="text-align:center; border: 2px solid #f59e0b;">
-      <h2>Activate Your Account</h2>
-      <p class="subtext">
-        Pay a one-time activation fee of <strong style="color:#0f172a;">₦<span id="feeDisplay"></span></strong> to unlock daily social media tasks and start earning real cash.
-      </p>
-      <button type="button" onclick="payActivation()" class="btn">
-        Pay ₦<span id="feeBtnDisplay"></span> with Paystack
-      </button>
-    </div>
-  </section>
-
-  <!-- DASHBOARD -->
-  <section id="dashboardSection" class="container hidden">
-    <div class="wallet-card">
-      <div style="font-size:12px; font-weight:700; text-transform:uppercase; opacity:0.9;">Available Balance</div>
-      <div class="balance">₦<span id="userBalance">0</span></div>
-      <div style="margin-bottom:16px;"><span class="badge">Verified Member</span></div>
-      <button type="button" onclick="openWithdrawModal()" class="btn-sm" style="background:#ffffff; color:#047857; border:none; padding:10px 18px;">Withdraw Funds</button>
-    </div>
-
-    <div id="adminBanner" class="admin-box hidden">
-      <div>
-        <div style="font-weight:800; color:#5b21b6; font-size:14px;">Admin Control Panel</div>
-        <div style="font-size:12px; color:#64748b;">Post tasks, approve proofs & payouts</div>
-      </div>
-      <button type="button" onclick="toggleAdminPanel()" class="btn-sm btn-purple">Open Admin</button>
-    </div>
-
-    <div id="adminPanel" class="card hidden" style="margin-bottom:20px; border: 2px solid #8b5cf6;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-        <h3 style="color:#5b21b6; margin:0;">Admin Manager</h3>
-        <button type="button" onclick="toggleAdminPanel()" class="btn-sm">Close</button>
-      </div>
-
-      <form onsubmit="createTask(event)" style="margin-bottom:20px;">
-        <div class="field"><input type="text" id="taskTitle" required placeholder="Task Title (e.g. Follow our Instagram)" /></div>
-        <div class="field"><input type="text" id="taskPlatform" required placeholder="Platform (Instagram, TikTok, YouTube...)" /></div>
-        <div class="field"><input type="number" id="taskReward" required placeholder="Reward in Naira (e.g. 50)" /></div>
-        <div class="field"><input type="url" id="taskUrl" required placeholder="Task Link (https://...)" /></div>
-        <button type="submit" class="btn btn-purple">Publish Task</button>
-      </form>
-
-      <h3>Pending Task Proofs</h3>
-      <div id="adminSubmissionsList" style="margin-bottom:18px;"></div>
-
-      <h3>Pending Withdrawals</h3>
-      <div id="adminWithdrawalsList"></div>
-    </div>
-
-    <h3>Available Social Media Tasks</h3>
-    <div id="tasksList"><p class="subtext">Loading tasks...</p></div>
-  </section>
-
-  <!-- WITHDRAW MODAL -->
-  <div id="withdrawModal" class="modal-bg hidden">
+<nav><div class="brand"><b>S</b>StackPaid</div><button id="logout" class="secondary hidden">Log out</button></nav>
+<div class="wrap">
+<div id="message"></div>
+<section id="auth" class="card">
+<h1>Welcome to StackPaid</h1><p class="muted">Complete social media tasks and earn rewards.</p>
+<div class="tabs"><button id="loginTab">Log in</button><button id="signupTab" class="secondary">Sign up</button></div>
+<form id="authForm">
+<div id="nameField" class="field hidden"><label>FULL NAME</label><input id="name" autocomplete="name"></div>
+<div class="field"><label>EMAIL ADDRESS</label><input id="email" type="email" required autocomplete="email"></div>
+<div class="field"><label>PASSWORD</label><input id="password" type="password" minlength="6" required autocomplete="current-password"></div>
+<button class="full" id="authSubmit">Log in</button>
+</form></section>
+<section id="app" class="hidden">
+<div class="wallet"><div>AVAILABLE BALANCE</div><div class="balance" id="balance">₦0.00</div><div id="activationState">Account status</div></div>
+<div id="activateCard" class="card hidden"><h2>Activate your account</h2><p class="muted">Pay the one-time ₦1,000 activation fee to unlock tasks.</p><button id="activate" class="full">Pay ₦1,000 with Paystack</button></div>
+<div class="card"><div class="row"><h2>Available tasks</h2><button id="refreshTasks" class="secondary">Refresh</button></div><div id="tasks"><p class="muted">Loading tasks…</p></div></div>
+<div class="card"><h2>Request withdrawal</h2><p class="muted">Minimum withdrawal: ₦5,000. Requests are reviewed by an administrator.</p>
+<form id="withdrawForm"><div class="field"><label>AMOUNT (₦)</label><input id="withdrawAmount" type="number" min="5000" required></div><div class="field"><label>BANK NAME</label><input id="bank" required></div><div class="field"><label>10-DIGIT ACCOUNT NUMBER</label><input id="account" inputmode="numeric" maxlength="10" required></div><div class="field"><label>ACCOUNT NAME</label><input id="accountName" required></div><button class="full">Submit withdrawal request</button></form></div>
+<div id="admin" class="card admin hidden"><h2>Admin controls</h2><p class="muted">Only accounts explicitly granted admin access in Supabase can use these controls.</p>
+<form id="taskForm"><h3>Publish a task</h3><div class="field"><input id="taskTitle" placeholder="Task title" required></div><div class="field"><input id="platform" placeholder="Platform" required></div><div class="field"><textarea id="description" placeholder="Task instructions"></textarea></div><div class="field"><input id="reward" type="number" min="1" placeholder="Reward in naira" required></div><div class="field"><input id="taskUrl" type="url" placeholder="Task URL" required></div><button class="full">Publish task</button></form>
+<hr><h3>Pending task proofs</h3><div id="pendingTasks"></div><h3>Pending withdrawals</h3><div id="pendingWithdrawals"></div>
+</div></section>
+</div>
+<script>
+const SUPABASE_URL = "https://YOUR_PROJECT_ID.supabase.co";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+const db = supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+let mode="login", session=null, profile=null;
+const $=id=>document.getElementById(id);
+function message(text,bad=false){$("message").innerHTML=text?`<div class="notice ${bad?"error":""}">${escapeHtml(text)}</div>`:""}
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+async function api(path,body){const r=await fetch(path,{method:body?"POST":"GET",headers:{...(body?{"Content-Type":"application/json"}:{}),Authorization:"Bearer "+session.access_token},body:body?JSON.stringify(body):undefined});const j=await r.json();if(!r.ok)throw Error(j.error||"Request failed");return j}
+function authMode(m){mode=m;$("nameField").classList.toggle("hidden",m!=="signup");$("authSubmit").textContent=m==="signup"?"Create account":"Log in";$("loginTab").classList.toggle("secondary",m!=="login");$("signupTab").classList.toggle("secondary",m!=="signup")}
+$("loginTab").onclick=()=>authMode("login");$("signupTab").onclick=()=>authMode("signup");
+$("authForm").onsubmit=async e=>{e.preventDefault();message("");try{let email=$("email").value,password=$("password").value;if(mode==="signup"){const {data,error}=await db.auth.signUp({email,password,options:{data:{full_name:$("name").value}}});if(error)throw error;if(!data.session){message("Account created. Check your email to confirm, then log in.");return}}else{const {error}=await db.auth.signInWithPassword({email,password});if(error)throw error}await boot()}catch(e){message(e.message,true)}};
+$("logout").onclick=async()=>{await db.auth.signOut();session=null;showAuth()};
+function showAuth(){$("auth").classList.remove("hidden");$("app").classList.add("hidden");$("logout").classList.add("hidden")}
+async function boot(){const {data}=await db.auth.getSession();session=data.session;if(!session){showAuth();return}try{const me=await api("/api/me");profile=me.profile;$("auth").classList.add("hidden");$("app").classList.remove("hidden");$("logout").classList.remove("hidden");$("balance").textContent="₦"+Number(profile.balance||0).toLocaleString("en-NG",{minimumFractionDigits:2});$("activationState").textContent=profile.is_activated?"Activated member":"Not activated";$("activateCard").classList.toggle("hidden",!!profile.is_activated);$("admin").classList.toggle("hidden",!profile.is_admin);await loadTasks();if(profile.is_admin)await loadAdmin()}catch(e){message(e.message,true)}}
+async function loadTasks(){try{const {tasks}=await api("/api/tasks");$("tasks").innerHTML=tasks.length?tasks.map(t=>`<div class="task"><div class="row"><b>${escapeHtml(t.title)}</b><b>₦${Number(t.reward).toLocaleString()}</b></div><small>${escapeHtml(t.platform)}</small><p>${escapeHtml(t.description||"")}</p><a class="btn" target="_blank" rel="noopener" href="${escapeHtml(t.task_url)}">Open task</a><form class="proofForm" data-id="${t.id}"><div class="field"><label>PROOF / LINK</label><input name="proof" required placeholder="Paste your proof or screenshot link"></div><button class="full">Submit proof</button></form></div>`).join(""):"<p class='muted'>No active tasks yet.</p>";document.querySelectorAll(".proofForm").forEach(f=>f.onsubmit=async e=>{e.preventDefault();try{await api("/api/submit-task",{task_id:f.dataset.id,proof:new FormData(f).get("proof")});message("Proof submitted for admin review.");f.reset()}catch(x){message(x.message,true)}})}catch(e){message(e.message,true)}}
+$("refreshTasks").onclick=loadTasks;
+$("activate").onclick=async()=>{try{const d=await api("/api/activate",{});location.href=d.authorization_url}catch(e){message(e.message,true)}};
+$("withdrawForm").onsubmit=async e=>{e.preventDefault();try{await api("/api/request-withdrawal",{amount:$("withdrawAmount").value,bank_name:$("bank").value,account_number:$("account").value,account_name:$("accountName").value});message("Withdrawal request submitted.");e.target.reset();await boot()}catch(x){message(x.message,true)}};
+$("taskForm").onsubmit=async e=>{e.preventDefault();try{await api("/api/admin-create-task",{title:$("taskTitle").value,platform:$("platform").value,description:$("description").value,reward:$("reward").value,task_url:$("taskUrl").value});message("Task published.");e.target.reset();await loadTasks()}catch(x){message(x.message,true)}};
+async function loadAdmin(){try{const {data:subs,error}=await db.from("task_submissions").select("id,proof,status,user_id,task_id,created_at").eq("status","pending").order("created_at");if(error)throw error;$("pendingTasks").innerHTML=(subs||[]).map(s=>`<div class="task"><b>Task #${s.task_id}</b><p>${escapeHtml(s.proof)}</p><small>${escapeHtml(s.user_id)}</small><div class="row"><button data-review="${s.id}" data-decision="approved">Approve</button><button class="secondary" data-review="${s.id}" data-decision="rejected">Reject</button></div></div>`).join("")||"<p class='muted'>No pending proofs.</p>";document.querySelectorAll("[data-review]").forEach(b=>b.onclick=async()=>{try{await api("/api/admin-review-task",{submission_id:b.dataset.review,decision:b.dataset.decision});message("Submission reviewed.");await loadAdmin();await boot()}catch(e){message(e.message,true)}});const {data:ws,error:we}=await db.from("withdrawals").select("*").eq("status","pending").order("created_at");if(we)throw we;$("pendingWithdrawals").innerHTML=(ws||[]).map(w=>`<div class="task"><b>₦${Number(w.amount).toLocaleString()}</b><p>${escapeHtml(w.bank_name)} · ${escapeHtml(w.account_number)} · ${escapeHtml(w.account_name)}</p><input placeholder="Bank transfer reference" id="ref-${w.id}"><div class="row"><button data-w="${w.id}" data-d="paid">Mark paid</button><button class="secondary" data-w="${w.id}" data-d="rejected">Reject & return balance</button></div></div>`).join("")||"<p class='muted'>No pending withdrawals.</p>";document.querySelectorAll("[data-w]").forEach(b=>b.onclick=async()=>{try{const ref=$("ref-"+b.dataset.w)?.value;await api("/api/admin-withdrawal",{withdrawal_id:b.dataset.w,decision:b.dataset.d,payout_reference:ref});message("Withdrawal updated.");await loadAdmin();await boot()}catch(e){message(e.message,true)}})}catch(e){message("Admin panel: "+e.message,true)}}
+async function verifyCallback(){const p=new URLSearchParams(location.search);if(p.get("payment")==="verify"&&p.get("reference")){try{await api("/api/verify-payment",{reference:p.get("reference")});history.replaceState({}, "", "/");message("Payment verified. Your account is activated.");}catch(e){message(e.message,true)}}}
+db.auth.onAuthStateChange(()=>setTimeout(boot,0));
+await boot();if(session)await verifyCallback();
+</script>
+</body></html>
